@@ -1,0 +1,14 @@
+1677954031195	geckodriver	INFO	Listening on 127.0.0.1:55395
+1677954032488	mozrunner::runner	INFO	Running command: "/snap/firefox/current/firefox.launcher" "--marionette" "--remote-debugging-port" "59585" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "/tmp/rust_mozprofileUI1PZJ"
+console.warn: services.settings: Ignoring preference override of remote settings server
+console.warn: services.settings: Allow by setting MOZ_REMOTE_SETTINGS_DEVTOOLS=1 in the environment
+1677954035100	Marionette	INFO	Marionette enabled
+1677954035110	Marionette	INFO	Listening on port 40941
+Read port: 40941
+WebDriver BiDi listening on ws://127.0.0.1:59585
+1677954035593	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+console.error: ({})
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at /tmp/rust_mozprofileUI1PZJ/search.json.mozlz4", (void 0)))
+DevTools listening on ws://127.0.0.1:59585/devtools/browser/74cf84f2-363b-4eb8-9f64-c3c004bdbb71
+1677954040278	Marionette	INFO	Stopped listening on port 40941
+console.warn: TopSitesFeed: Failed to fetch data from Contile server: NetworkError when attempting to fetch resource.
