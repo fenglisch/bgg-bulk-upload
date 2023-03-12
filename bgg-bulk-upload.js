@@ -10,6 +10,7 @@ const userName = getCredentials("-u");
 const password = getCredentials("-p");
 const isDebuggingMode = process.argv.includes("debugging-mode");
 const isShowBrowser = process.argv.includes("show-browser");
+const arAddedIds = [];
 const arIdsFailedToAdd = [];
 
 async function start() {
@@ -29,7 +30,7 @@ async function start() {
   );
   console.log(
     `[Status update] ${
-      arIdsFromInput.length - arIdsAlreadyInCollection.length
+      arIdsFromInput.length - arNewIds.length
     } of the ID's in your file are already in your collection. ${
       arNewIds.length
     } new ID's to be added.`
@@ -47,9 +48,9 @@ async function start() {
 
 function getIdsFromFile() {
   try {
-    // process.argv[0] is "node" and process.argv[1] is "index.js", so process.argv[2] is the path to the input file
+    // process.argv[2] is the path to the input file, because process.argv[0] is "node" and process.argv[1] is "bgg-bulk-upload.js"
     const dataFromFile = fs.readFileSync(process.argv[2], "utf8");
-    // Converting each id to a number and then filtering out all falsy elements removes all non-number elements
+    // Converting each id to a number and then filtering out all falsy elements. This removes all non-number elements
     return dataFromFile
       .split(";")
       .map((id) => +id)
@@ -61,7 +62,8 @@ function getIdsFromFile() {
     console.log(
       "$ node index.js PATH/TO/listOfIds.csv -u your_username -p your_password"
     );
-    throw new Error();
+    if (isDebuggingMode) console.log(err);
+    process.exit();
   }
 }
 
@@ -165,6 +167,7 @@ async function addNewGamesToCollection(arIdsToBeAdded) {
   try {
     await driver.get(`${BASE_URL}/login`);
     console.log("[Status update] Logging in.");
+    await driver.sleep(3000);
     await driver.findElement(By.id("inputUsername")).sendKeys(userName);
     await driver
       .findElement(By.id("inputPassword"))
@@ -199,6 +202,7 @@ async function addNewGamesToCollection(arIdsToBeAdded) {
         await driver.executeScript(
           `document.querySelector("[ng-disabled='editctrl.saving']").click();`
         );
+        arAddedIds.push(id);
         const pageTitle = await driver.getTitle();
         const gameTitle = pageTitle.replace(/(.*?) \|.*/, "$1");
         console.log(
@@ -226,10 +230,18 @@ async function addNewGamesToCollection(arIdsToBeAdded) {
       }
     }
     console.log("[Finished]");
-    console.log(
-      "Adding the games with the following ID's failed. Please try again or add them manually."
-    );
-    console.log(arIdsFailedToAdd.join(";"));
+    if (arAddedIds.length > 0) {
+      console.log(
+        `[Final report] Successfully added ${arAddedIds.length} games.`
+      );
+      if (isDebuggingMode) console.log(arAddedIds.join(";"));
+    }
+    if (arIdsFailedToAdd.length > 0) {
+      console.log(
+        "[Final report] Adding the games with the following ID's failed. Please try again or add them manually."
+      );
+      console.log(arIdsFailedToAdd.join(";"));
+    }
   } catch (err) {
     console.log(err);
   } finally {
