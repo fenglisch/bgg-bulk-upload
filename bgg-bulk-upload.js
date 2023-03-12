@@ -1,5 +1,6 @@
-const chrome = require("selenium-webdriver/chrome");
-const firefox = require("selenium-webdriver/firefox");
+const browser = process.argv.includes("firefox")
+  ? require("selenium-webdriver/firefox")
+  : require("selenium-webdriver/chrome");
 const { Builder, By, Key, until } = require("selenium-webdriver");
 const xml2js = require("xml2js");
 const axios = require("axios");
@@ -51,10 +52,15 @@ function getIdsFromFile() {
     // process.argv[2] is the path to the input file, because process.argv[0] is "node" and process.argv[1] is "bgg-bulk-upload.js"
     const dataFromFile = fs.readFileSync(process.argv[2], "utf8");
     // Converting each id to a number and then filtering out all falsy elements. This removes all non-number elements
-    return dataFromFile
-      .split(";")
-      .map((id) => +id)
-      .filter(Boolean);
+    // Removing duplicates by converting to a set and reconverting to array
+    return [
+      ...new Set(
+        dataFromFile
+          .split(";")
+          .map((id) => +id)
+          .filter(Boolean)
+      ),
+    ];
   } catch (err) {
     console.log(
       "[Error] Could not read content of file. Please check the path and use this syntax:"
@@ -149,14 +155,14 @@ async function addNewGamesToCollection(arIdsToBeAdded) {
   let driver = "";
 
   if (process.argv.includes("firefox")) {
-    let options = new firefox.Options();
+    let options = new browser.Options();
     if (!isShowBrowser) options.addArguments("-headless");
     driver = new Builder()
       .forBrowser("firefox")
       .setFirefoxOptions(options)
       .build();
   } else {
-    options = new chrome.Options();
+    options = new browser.Options();
     if (!isShowBrowser) options.addArguments("--headless");
     driver = await new Builder()
       .forBrowser("chrome")
