@@ -1,8 +1,8 @@
-# Bulk upload your boardgames to your BoardGameGeek Collection
+# Bulk upload your Board Games to your BoardGameGeek Collection
 
-This programs allows you to bulk upload a list of boardgames to your BGG collection, a feature currently missing on BGG.
+This programs allows you to bulk upload a list of boar dgames to your BGG collection, a feature currently missing on BGG.
 
-You need to provide the BGG ID of each game. [This website](https://github.com/fenglisch/bgg-names-to-ids) identifies the ID's of your boardgames, given a list of their names.
+You need to provide the BGG ID of each game. [This website](https://github.com/fenglisch/bgg-names-to-ids) identifies the ID's of your board games, given a list of their names.
 
 ## How to setup
 
@@ -31,13 +31,65 @@ So, for example:
 $ node bgg-bulk-upload.js Desktop/Boardgames/list-of-ids.csv -u gamingFreak3000 -p 12345678
 ```
 
+## Adding board game versions in your language
+
+You can also set a language. If you do so, the program does not just add a general reference to the board game to your collection, but a specific version in your language. If there is no version in your language, the program just adds a general reference as it would by default. If there are several versions in your chosen language, the program selects the oldest one. You can later manually change or remove the versions of those board games where the automatic assignment was wrong.
+
+Set a language simply by adding `-l Language` to your command, so for example `-l German`.
+
+Our previous example would then look like this:
+
+```
+$ node bgg-bulk-upload.js Desktop/Boardgames/list-of-ids.csv -u gamingFreak3000 -p 12345678 -l German
+```
+
+<details>
+  <summary>All currently supported languages you can choose from</summary>
+  * Afrikaans
+* Arabic
+* English
+* Estonian
+* Latvian
+* Lithuanian
+* Basque
+* Bulgarian
+* Japanese
+* Catalan
+* Chinese
+* Croatian
+* Serbian
+* Slovenian
+* Czech
+* Slovak
+* Danish
+* Portuguese
+* Dutch
+* Russian
+* Finnish
+* French
+* German
+* Greek
+* Hebrew
+* Hungarian
+* Icelandic
+* Italian
+* Korean
+* Norwegian
+* Polish
+* Romanian
+* Macedonian
+* Spanish
+* Swedish
+* Thai
+</details>
+
 ### Additional options
 
 - `firefox` - The default browser is Google Chrome. If you want to use Firefox instead, just add `firefox` at the end of your command.
 - `show-browser` - By default, the program uses a headless browser, which runs invisibly in the background and therefore has a better perfomance. If you want to watch the browser navigate to all the pages and click the buttons, add `show-browser` at the end of your command. This is recommended for debugging in particular.
 - `debugging-mode` - By default, the programm logs the number of ID's it found in your already existing BGG collection and in the file you uploaded, as well as the resulting number of new ID's to be added. When `debugging-mode` is activated, the program will not only log each number, but the full list of ID's. Also, when `show-browser` is also set, the browser will not automatically close at the end after it finished processing.
 
-Our previous example would look as follows, when all additional options are activated:
+Our previous example would look as follows, when all additional options are set:
 
 ```
 $ node bgg-bulk-upload.js Desktop/Boardgames/list-of-ids.csv -u gamingFreak3000 -p 12345678 firefox show-browser debugging-mode
