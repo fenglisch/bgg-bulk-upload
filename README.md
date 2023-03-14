@@ -45,7 +45,8 @@ $ node bgg-bulk-upload.js Desktop/Boardgames/list-of-ids.csv -u gamingFreak3000 
 
 <details>
   <summary>All currently supported languages you can choose from</summary>
-  * Afrikaans
+
+- Afrikaans
 - Arabic
 - English
 - Estonian
@@ -81,6 +82,7 @@ $ node bgg-bulk-upload.js Desktop/Boardgames/list-of-ids.csv -u gamingFreak3000 
 - Spanish
 - Swedish
 - Thai
+
 </details>
 
 ### Additional options
