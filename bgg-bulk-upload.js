@@ -95,7 +95,7 @@ function getIdsFromFile() {
       ...new Set(
         dataFromFile
           .split(";")
-          .map((id) => +id)
+          .map((id) => +id.replace(/"/g, ""))
           .filter(Boolean)
       ),
     ];
@@ -323,7 +323,7 @@ async function addVersionOfGame(driver, id) {
   } catch (err) {
     console.log(
       RESET,
-      `[Status update] No ${language} version found for ${id}. Adding general board game without specific version.`
+      `[Status update] No ${language} version found for ${id}. Adding general reference to the board game to your collection.`
     );
     return await addGameWithoutVersion(driver);
   }

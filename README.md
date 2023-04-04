@@ -111,4 +111,4 @@ It then starts a browser session (Chrome or Firefox, as you wish) with Selenium 
 
 ## Performance / Speed
 
-On my computer, it takes about 3 - 4 seconds per game (4 - 5 with Firefox). The less other programs you run on your computer simultaneously, the quicker it will run.
+On my computer, it takes about 3 - 4 seconds per game (4 - 5 with Firefox). When a language is set to add specific versions instead of general references, each iteration takes a bit longer, maybe 6 - 7 seconds. The less other programs you run on your computer simultaneously, the quicker it will run.
