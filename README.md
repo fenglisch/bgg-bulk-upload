@@ -4,6 +4,8 @@ This programs allows you to bulk upload a list of boar dgames to your BGG collec
 
 You need to provide the BGG ID of each game. [This website](https://github.com/fenglisch/bgg-names-to-ids) identifies the ID's of your board games, given a list of their names.
 
+See also the thread on BGG, where this tool is discussed: https://boardgamegeek.com/thread/3045904/new-program-to-bulk-upload-import-board-games-to-y
+
 ## How to setup
 
 **Prerequisites**: You need to have `node` and `npm` installed (see [instructions](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)). You also need Google Chrome or Firefox. Google Chrome is set as the default browser. If you want to use Firefox, you must explicitly specify that when exectuting the program (see "Additional options").
